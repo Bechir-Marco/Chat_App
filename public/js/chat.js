@@ -76,22 +76,28 @@ $sendLocationButton.addEventListener('click', () => {
 
   $sendLocationButton.setAttribute('disabled', 'disabled');
 
-  navigator.geolocation.getCurrentPosition((position) => {
-    socket.emit(
-      'sendLocation',
-      {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      } , undefined,
-    { enableHighAccuracy: true },
-    { timeout: 10_000 },
-      () => {
-        $sendLocationButton.removeAttribute('disabled');
-        console.log('Location shared!');
-      }
-    );
-  });
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      socket.emit(
+        'sendLocation',
+        {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        },
+        () => {
+          $sendLocationButton.removeAttribute('disabled');
+          console.log('Location shared!');
+        }
+      );
+    },
+    (error) => {
+      console.error(error);
+      alert('Unable to retrieve your location');
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
 });
+
 
 socket.emit('join', { username, room }, (error) => {
   if (error) {
