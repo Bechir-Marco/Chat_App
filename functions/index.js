@@ -9,15 +9,16 @@ const io = socketio(server);
 const {
   generateMessage,
   generateLocationMessage,
-} = require('./utils/messages');
+} = require('../src/utils/messages');
+
 const {
   addUser,
   removeUser,
   getUser,
   getUsersInRoom,
-} = require('./utils/users');
+} = require('../src/utils/users');
 const port = process.env.PORT || 3000;
-const publicDirectoryPath = path.join(__dirname, '../public');
+const publicDirectoryPath = path.join(__dirname, '../dist');
 
 app.use(express.static(publicDirectoryPath));
 
