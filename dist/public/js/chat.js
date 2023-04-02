@@ -112,8 +112,8 @@ $sendLocationButton.addEventListener('click', () => {
     (error) => {
       console.error(error);
       alert('Unable to retrieve your location');
-    },
-    { enableHighAccuracy: false, timeout: 10_000 }
+    },undefined,
+    { enableHighAccuracy: false}
   );
 });
 
